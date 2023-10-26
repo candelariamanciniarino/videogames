@@ -1,5 +1,5 @@
-const cleaner = (videogames) => {
-    return videogames.results.map((game) => ({
+const infoCleaner = (videogames) => {
+    return videogames.map((game) => ({
       id: game.id,
       name: game.name,
       platforms: game.platforms.map((platform) => platform.platform.name).join(', '),
@@ -10,6 +10,4 @@ const cleaner = (videogames) => {
     }));
   };
 
-  module.exports={cleaner}
-
-  
+  module.exports={infoCleaner}

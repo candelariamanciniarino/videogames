@@ -15,11 +15,11 @@ module.exports = (sequelize) => {
      defaultValue: DataTypes.UUIDV4,
       primaryKey: true
     },
-    descripcion:{
-      type:DataTypes.TEXT,
-      allowNull:false
-    },
-    platform:{
+    //descripcion:{
+     // type:DataTypes.TEXT,
+      //allowNull:false
+    //},
+    platforms:{
       type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,
     
