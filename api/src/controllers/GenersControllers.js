@@ -1,31 +1,53 @@
 const axios = require('axios');
-const {genrs} = require('../db');
-const Genres = require('../models/Genres');
+const {genres} = require('../db');
 const {API_KEY } = process.env;
 
-//traer todos los generos de la api
+const getAllGenresVideogame= async () =>{
+    const genresFromDB = await getAllGeners();
 
-const getAllgenresVideogame= async () =>{
-    const URL_API = `https://api.rawg.io/api/games? KEY=${API_KEY}`;
+    if (genresFromDB.length > 0) {
+    
+        return genresFromDB;
+    }
+
+    const URL_API = `https://api.rawg.io/api/genres?key=${API_KEY}`;
+    const response = await axios.get(URL_API);
+
+    if (response.status === 200) {
+        const data = response.data;
+        if (data.results && data.results.length > 0) {
+            const genres = data.results.map(genre => genre.name);
+            await saveGeners(genres); 
+            return genres;
+        }
+    }
+  };
+
+const getAllGeners = async () => {
+    try {
+      const gen = await genres.findAll({
+        attributes: ["name"],
+      });
+      return gen.map((gener) => gener.name);
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  };
 
 
-    const genersDb = await Genres.findAll();
-    if(!genersDb.lenght){
-        const requestApi = (await axios.get(`${URL_API}`)).data.results;
-        const genresArray = requestApi.map((genre) => genre.name);
+const saveGeners = async (geners) => {
+    try {
+      await Promise.all(
+        geners.map(async (typeName) => {
+          await genres.create({
+            name: typeName,
+          });
+        })
+      );
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  };
 
-        await Promise.all(
-            genresArray.map(async (genre) =>{
-                await Genres.findOrCreate({
-                    where:{
-                        name:genre,
-                    },
-                });
-            })
-        );
-        return genresArray;
-}
-return genersDb.map((g)=> g.name);
 
-};
-module.exports = {getAllgenresVideogame};
+module.exports = {getAllGenresVideogame};
