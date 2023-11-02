@@ -1,9 +1,9 @@
-import styles from './Landing.module.css'
+import styles from '../landingPage/landing.module.css';
 import {Link} from 'react-router-dom'
 import React from 'react'
 
 
-const Landing=()=>{
+const LandingPage=()=>{
     return (
         <div className={styles.fondo}>
             <title>Bienvenidos al mundo de los juego </title>
@@ -14,4 +14,4 @@ const Landing=()=>{
         </div>
     );
 }
-export default Landing;
+export default LandingPage;
