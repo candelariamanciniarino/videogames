@@ -1,7 +1,7 @@
 
 
 //importa las actions types
-import { GET_GAMES, GET_GAME_ID, GET_GENRES, GET_PLATFORMS, PAGINATED, FILTER_BY_GENRES,FILTER_ORIGIN,ORDER_BY_RATING, ORDER_CARDS,  filterOrigin} from "../actions/actions";
+import {SEARCH_GAME, GET_GAMES, GET_GAME_ID, GET_GENRES, GET_PLATFORMS, PAGINATED, FILTER_BY_GENRES,FILTER_ORIGIN,ORDER_BY_RATING, ORDER_CARDS,  filterOrigin} from "../actions/actions";
 
 //estado inicial
 let initialState = {
@@ -21,6 +21,17 @@ function rootReducer(state = initialState, action) {
 
 
     switch (action.type) {
+
+        case SEARCH_GAME:
+            const sear = action.payload.tolowerCase()
+            const videogameFILTER = state.allVideogamesBackUp.filter((game)=>game.name.tolowerCase().includes(sear))
+            return {
+             ...state,
+             allVideogames:videogameFILTER.slice(0,ITEMS_PER_PAGE),
+             currentPage:0
+            };
+
+
         case GET_GAMES:
             console.log(action.payload)
             return {

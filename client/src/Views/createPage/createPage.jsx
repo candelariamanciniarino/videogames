@@ -83,7 +83,7 @@ const Create = () => {
                         state.description.length > 0 &&
                         state.background_image.length > 0 &&
                         state.released.length > 0 &&
-                        state.platforms.length > 0 && // Cambiado de >= 0 a > 0 para requerir al menos una plataforma
+                        state.platforms.length > 0 && 
                         state.rating > 0 &&
                         generosSelec.length > 0
 

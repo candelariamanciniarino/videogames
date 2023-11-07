@@ -1,0 +1,18 @@
+.detailsContainer {
+    background-image: url('../../../img/videojuegos-enmarcados-estilo-neon-pared-ladrillo_24908-58914\ \(1\).avif');
+    background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  height: 100vb;
+  color: white;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 20px auto;
+    max-width: 600px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  }
+  

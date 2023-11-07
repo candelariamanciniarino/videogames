@@ -1,35 +1,47 @@
+
+
 import React from 'react'
-import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import {searchGames} from '../../Redux/actions/actions'
 
 
-
-
-
-function searchBar (){
+function SearchBar (){
   const dispatch = useDispatch();
   const [game, setGame] = useState('');
+  const videoGame = useSelector((state)=> state.allVideogames)
 
   const handleChange =(event)=>{
     setGame(event.target.value)
   }
 
   const handleSubmit = (event)=>{
-    event.preventDefault();
+    dispatch(searchGames(game))
+    setGame('')
   }
- 
-  return (
-    <div>
-      <form >
-          <div>
-            <div>
-              <input className='input' name="input" id="input" type='search' placeholder='Encontrar tu juego favorito' />
-            </div>
-           </div>
-                <button type='submit'>Go!</button>
-            </form>
-    </div>
-  )
+ useEffect(()=>{
+
+ }, [videoGame])
+
+return (
+  <div>
+      <div>
+        <div>
+          <input
+            
+           name="search"
+            id="search"
+            type='search'
+            placeholder='Encontrar tu juego favorito'
+            value={game}
+            onChange={handleChange}
+          />
+        </div>
+      </div>
+      <button type='submit' onClick={handleSubmit}>Go!</button>
+   
+  </div>
+);
 }
 
-export default searchBar
+export default SearchBar

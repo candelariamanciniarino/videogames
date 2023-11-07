@@ -113,13 +113,13 @@ export function getGenres() {
   export function searchGames(name) {
     return async function (dispatch){
       try {
-        const response=await axios.get(`http://localhost:3001/games/${name}`)
+       
         dispatch({
           type: SEARCH_GAME,
-          payload: search
+          payload: name
         });
       } catch (error) {
-        console.log(error.response.data.error);
+        console.log("error al buscar");
       }
     };
   }
