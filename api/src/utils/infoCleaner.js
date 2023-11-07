@@ -7,7 +7,7 @@ const cleaner = (videogames) => {
       released: game.released,
       rating: game.rating,
       description:game.description,
-      genres: game.genres
+      genres:game.genres.map(genero => genero.name).join(", ")
     }));
   };
 

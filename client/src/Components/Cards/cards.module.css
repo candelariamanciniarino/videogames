@@ -3,4 +3,7 @@
     flex-wrap: wrap;
     justify-content: center;
     margin-top: 50px;
+    flex-direction: row;
+    justify-content: space-between; 
+    padding: 20px; 
     }

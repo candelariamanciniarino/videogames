@@ -1,0 +1,12 @@
+.background{
+    background-color: grey;
+    justify-content: center;
+    color: white;
+    display: flex;
+}
+
+.navbar{
+    display: inline-block;
+    width: 40px; 
+    margin-right: 10px;
+}

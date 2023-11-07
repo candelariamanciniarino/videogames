@@ -40,3 +40,7 @@
 .read-the-docs {
   color: #888;
 } */
+a, a:visited, a:hover, a:active {
+  color: white; /* o cualquier otro color que desees */
+  text-decoration: none; /* quita el subrayado */
+}
