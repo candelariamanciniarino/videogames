@@ -17,7 +17,7 @@ export const ORDER_CARDS='ORDER_CARDS'
  export function getById(id){
     return async function (dispatch){
         try{
-            const response =  await axios.get(`http://localhost:3001/videogames/${id}`);
+            const response =  await axios.get(`http://localhost:3001/videogame/${id}`);
             const videoGameID = response.data;
             return dispatch({
                 type: GET_GAME_ID,
@@ -71,7 +71,7 @@ export function getGenres() {
   export function postGame(state) {
     return async function (dispatch) {
       try {
-         await axios.post("http://localhost:3001/games", state)
+         await axios.post("http://localhost:3001/Videogame", state)
         console.log("Juego creado con exito!")
       } catch (error) {
         console.log(error.response.data.error)

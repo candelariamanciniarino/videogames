@@ -7,13 +7,13 @@ import Card from '../../Components/Card/Card';
 function Details() {
   const {id} = useParams();
   const dispatch = useDispatch();
-  const game = useSelector((state) => state.gemeId)
+  const game = useSelector((state) => state.videoGameId)
 
   
   const [searchId, setSearchId] = useState("")
 
    function handleChange(event){
-    event.preventDefault()
+    // event.preventDefault()
     setSearchId(event.target.value)
    }
    function handleSubmit(event){
@@ -21,25 +21,25 @@ function Details() {
    }
 
   useEffect(() => {
-    dispatch(getById()); 
+    dispatch(getById(id)); 
   }, [dispatch]);
 
   return (
     <div>
-      {game?.map(game=>(
-    
-       <Card
-      id={game.id}
-      name={game.name}
-      platforms={game.platforms}
-      src ={game.background_image}
-      released={game.released}
-      rating={game.rating}
-      géneros={game.genres.map(genero => genero.name).join(", ")}
-      handleChange={handleChange}
-      handleSubmit={handleSubmit}
-      />
-      ))}
+      
+    {game && <div
+      >
+        <img width={500} src={game.background_image} alt={game.name} />
+                <h2>Nombre: {game.name}</h2>
+                <h2>rating:{game.rating}</h2>
+                <h2>released:{game.released}</h2>
+                <h2>description:{game.description}</h2>
+               <h2>Plataformas: {game && game.platforms.map(platform => platform.platform.name).join(', ')}</h2>
+               <h2>Géneros: {game && game.genres ? game.genres.map(g => g.name).join(", ") : 'No hay información de géneros'}</h2>
+        
+        </div>}
+       
+      
    
 
     </div>

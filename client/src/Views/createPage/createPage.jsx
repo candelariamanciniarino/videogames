@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getGenres } from '../../Redux/actions/actions';
+import { getGenres, postGame } from '../../Redux/actions/actions';
 import style from './createPage.module.css';
 
 const Create = () => {
@@ -78,10 +78,17 @@ const Create = () => {
   };
 
   const disableSubmit = () => {
-    for (let key in error) {
-      if (error[key] !== '') return false
-    }
-    return true
+    console.log(state,"state")
+    const isFormValid = state.name &&
+                        state.description.length > 0 &&
+                        state.background_image.length > 0 &&
+                        state.released.length > 0 &&
+                        state.platforms.length > 0 && // Cambiado de >= 0 a > 0 para requerir al menos una plataforma
+                        state.rating > 0 &&
+                        generosSelec.length > 0
+
+
+    return !isFormValid;
   };
 
   const handleChange = (event) => {
@@ -127,39 +134,40 @@ const Create = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    let avoidRepetion = all.filter((n) => n.name === input.name);
-    if (avoidRepetion.length !== 0) {
-      alert("Please choose another name, it already exists");
-    } else {
-      if (
-        Object.keys(error).length !== 0 ||
-        !input.genres.length ||
-        !input.platforms.length
-      ) {
-        alert("All fields must be completed");
-      } else {
-        if (Object.keys(error).length === 0 && input.genres.length > 0) {
-          dispatch(createVideogame(input));
+    // let avoidRepetion = all.filter((n) => n.name === input.name);
+    // if (avoidRepetion.length !== 0) {
+    //   alert("Please choose another name, it already exists");
+    // } else {
+    //   if (
+    //     Object.keys(error).length !== 0 ||
+    //     !input.genres.length ||
+    //     !input.platforms.length
+    //   ) {
+    //     alert("All fields must be completed");
+    //   } else {
+    //     if (Object.keys(error).length === 0 && input.genres.length > 0) {
+     let state2= {...state,genres:generosSelec}
+          dispatch(postGame(state2));
           alert("Videogame successfully created");
-          setInput({
-            name: "",
-            image: "",
-            description: "",
-            released: "",
-            rating: "",
-            platforms: [],
-            genres: [],
-          });
+          // setInput({
+          //   name: "",
+          //   image: "",
+          //   description: "",
+          //   released: "",
+          //   rating: "",
+          //   platforms: [],
+          //   genres: [],
+          // });
        
-        }
-      }
-    }
+        
+      
+    
   }
   
 
   return (
     <div className={style.form}>
-   <form>
+   <form onSubmit={handleSubmit}>
         <label>Name:</label>
         <input name="name" onChange={handleChange} type="text" value={state.name} />
         {error.name && <p>{error.name}</p>}
@@ -220,7 +228,7 @@ const Create = () => {
             })}</div>
           </div>
 
-        <button disabled={disableSub} type="submit">
+        <button disabled={disableSubmit()} type="submit">
           Entregar
         </button>
           </form>
