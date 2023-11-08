@@ -70,11 +70,12 @@ export function getGenres() {
   
   export function postGame(state) {
     return async function (dispatch) {
+      console.log(state,"state antes del post")
       try {
-         await axios.post("http://localhost:3001/Videogame", state)
+         await axios.post("http://localhost:3001/videogame", state)
         console.log("Juego creado con exito!")
       } catch (error) {
-        console.log(error.response.data.error)
+        console.log(error.response.data.error,"ERROR AL CREAR JUEGO")
       }
   
     }

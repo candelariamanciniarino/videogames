@@ -3,7 +3,7 @@ import SearchBar from "../searchBar/searchBar";
 import { Link } from "react-router-dom"
 import style from "./navbar.module.css"
 
-function NavBar({ handleChange, handleSubmit }) {
+function NavBar({ handleChange, handleSubmit, mostrarSearch }) {
     return (
       <div className={style.navbar}>
         <div className={style.logoContainer}>
@@ -18,7 +18,7 @@ function NavBar({ handleChange, handleSubmit }) {
           <Link to={"/create"}>Create a game</Link>
           <br />
         </div>
-        <div><SearchBar /></div>
+       {mostrarSearch && <div><SearchBar /></div>}
       </div>
     );
   }

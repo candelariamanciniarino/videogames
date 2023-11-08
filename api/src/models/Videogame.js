@@ -15,9 +15,9 @@ module.exports = (sequelize) => {
      defaultValue: DataTypes.UUIDV4,
       primaryKey: true
     },
-    // description:{
-    //  type:DataTypes.TEXT,
-    //   allowNull:false
+    // descriptions:{
+    //  type: DataTypes.STRING,
+    //   allowNull: true
     // },
     platforms:{
       type: DataTypes.ARRAY(DataTypes.STRING),
@@ -29,7 +29,7 @@ module.exports = (sequelize) => {
       allowNull:false
     },
     freleaseds:{
-      type: DataTypes.DATEONLY,
+      type: DataTypes.STRING,
       allowNull: false
 
     },

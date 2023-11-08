@@ -23,7 +23,7 @@ function rootReducer(state = initialState, action) {
     switch (action.type) {
 
         case SEARCH_GAME:
-            const sear = action.payload.tolowerCase()
+            const sear = action.payload.toLowerCase();
             const videogameFILTER = state.allVideogamesBackUp.filter((game)=>game.name.tolowerCase().includes(sear))
             return {
              ...state,
@@ -42,6 +42,10 @@ function rootReducer(state = initialState, action) {
                 loadingState: false,
 
             };
+            case 'POST_ACTIVITY':
+                return {
+                    ...state,
+                };   
 
         case GET_GAME_ID: //dependiendo del tipo va a entrar a un switch statement, en este caso la action es GET_USERS (importada mas arriba)
             return {

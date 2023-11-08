@@ -22,3 +22,4 @@ function Cards ({allGames}){
 }
 
 export default Cards
+

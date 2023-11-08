@@ -12,7 +12,8 @@ const App = () => {
 
   return (
     <>
-      {pathname !== '/' && <NavBar />}
+      {pathname !== '/' && pathname!== "/create" && <NavBar mostrarSearch /> }
+      {pathname ==="/create" && <NavBar mostrarSearch={false}/>}
       <Routes>
         <Route path="/home" element={<HomePage />} />
         <Route path="/" element={<LandingPage />} />

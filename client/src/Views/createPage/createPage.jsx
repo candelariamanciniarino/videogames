@@ -32,17 +32,17 @@ const Create = () => {
     name: '',
     platforms: '',
     background_image: '',
-    released: '',
+    freleaseds: '',
     rating: '',
-    description: '',
+    //description: '',
     genres: [],
   });
 
   const [error, setErrors] = useState({
     name: 'Campo requerido',
     background_image: 'Campo requerido',
-    description: 'Descripción no válida',
-    released: 'Fecha no válida',
+   // description: 'Descripción no válida',
+    freleaseds: 'Fecha no válida',
     platforms: 'Plataformas no válidas',
     rating: 'Rating no válido',
   });
@@ -54,14 +54,14 @@ const Create = () => {
         else if (state.name.length > 20) setErrors({ ...error, name: 'Es muy largo' });
         else setErrors({ ...error, name: '' });
         break;
-      case 'description':
-        if (state.description.length === 0)
-          setErrors({ ...error, description: 'Campo requerido' });
-        else setErrors({ ...error, description: '' });
-        break;
-      case 'released':
-        if (!state.released) setErrors({ ...error, released: 'Fecha no válida' });
-        else setErrors({ ...error, released: '' });
+      // case 'description':
+      //   if (state.description.length === 0)
+      //     setErrors({ ...error, description: 'Campo requerido' });
+      //   else setErrors({ ...error, description: '' });
+      //   break;
+      case 'freleaseds':
+        if (!state.freleaseds) setErrors({ ...error, freleaseds: 'Fecha no válida' });
+        else setErrors({ ...error, freleaseds: '' });
         break;
       case 'platforms':
         if (!state.platforms) setErrors({ ...error, platforms: 'Plataformas no válidas' });
@@ -80,9 +80,10 @@ const Create = () => {
   const disableSubmit = () => {
     console.log(state,"state")
     const isFormValid = state.name &&
-                        state.description.length > 0 &&
+                        // state.description.length > 0 &&
+                        
                         state.background_image.length > 0 &&
-                        state.released.length > 0 &&
+                        state.freleaseds.length > 0 &&
                         state.platforms.length > 0 && 
                         state.rating > 0 &&
                         generosSelec.length > 0
@@ -134,26 +135,15 @@ const Create = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    // let avoidRepetion = all.filter((n) => n.name === input.name);
-    // if (avoidRepetion.length !== 0) {
-    //   alert("Please choose another name, it already exists");
-    // } else {
-    //   if (
-    //     Object.keys(error).length !== 0 ||
-    //     !input.genres.length ||
-    //     !input.platforms.length
-    //   ) {
-    //     alert("All fields must be completed");
-    //   } else {
-    //     if (Object.keys(error).length === 0 && input.genres.length > 0) {
-     let state2= {...state,genres:generosSelec}
+     let state2= {...state,genres:generosSelec, platforms: [state.platforms]}
+     console.log(state2,"state2 antes de post")
           dispatch(postGame(state2));
-          alert("Videogame successfully created");
+         
           // setInput({
           //   name: "",
           //   image: "",
           //   description: "",
-          //   released: "",
+          //   freleaseds: "",
           //   rating: "",
           //   platforms: [],
           //   genres: [],
@@ -167,7 +157,7 @@ const Create = () => {
 
   return (
     <div className={style.form}>
-   <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}>
         <label>Name:</label>
         <input name="name" onChange={handleChange} type="text" value={state.name} />
         {error.name && <p>{error.name}</p>}
@@ -179,15 +169,15 @@ const Create = () => {
 
         <br />
 
-        <label>Description:</label>
+  {     /* <label>Description:</label>
         <input name="description" onChange={handleChange} type="text" value={state.description} />
-        {error.description && <p>{error.description}</p>}
+        {error.description && <p>{error.description}</p>} */}
 
         <br />
 
-        <label>Released:</label>
-        <input name="released" onChange={handleChange} type="text" value={state.released} />
-        {error.released && <p>{error.released}</p>}
+        <label>freleaseds:</label>
+        <input name="freleaseds" onChange={handleChange} type="text" value={state.freleaseds} />
+        {error.freleaseds && <p>{error.freleaseds}</p>}
 
 
         <br />
