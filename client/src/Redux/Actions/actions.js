@@ -113,15 +113,12 @@ export function getGenres() {
 
   export function searchGames(name) {
     return async function (dispatch){
-      try {
-       
-        dispatch({
+      
+       return dispatch({
           type: SEARCH_GAME,
           payload: name
         });
-      } catch (error) {
-        console.log("error al buscar");
-      }
+      
     };
   }
 

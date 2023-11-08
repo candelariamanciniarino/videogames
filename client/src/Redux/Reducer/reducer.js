@@ -24,7 +24,7 @@ function rootReducer(state = initialState, action) {
 
         case SEARCH_GAME:
             const sear = action.payload.toLowerCase();
-            const videogameFILTER = state.allVideogamesBackUp.filter((game)=>game.name.tolowerCase().includes(sear))
+            const videogameFILTER = state.allVideogamesBackUp.filter((game)=>game.name.toLowerCase().includes(sear))
             return {
              ...state,
              allVideogames:videogameFILTER.slice(0,ITEMS_PER_PAGE),

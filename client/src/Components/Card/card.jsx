@@ -10,7 +10,7 @@ function Card({ id, background_image, name, genres }) {
             <Link to={`/detail/${id}`}>
                 <img className={style.img} src={background_image} alt={name} />
                 <h2>Nombre: {name}</h2>
-             /* <h2>Géneros: {genres}</h2> 
+              <h2>Géneros: {genres}</h2> 
             </Link>
         </div>
     );

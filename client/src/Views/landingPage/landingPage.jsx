@@ -6,10 +6,10 @@ import React from 'react'
 const LandingPage=()=>{
     return (
         <div className={styles.fondo}>
-            <title>Bienvenidos al mundo de los juego </title>
+            <title>comenzemos </title>
 
             <Link to ='/home'>
-            <button>comenzemos </button>
+            <button> Bienvenidos al mundo de los juego </button>
             </Link>
         </div>
     );

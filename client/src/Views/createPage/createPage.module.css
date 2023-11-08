@@ -1,14 +1,14 @@
-Copy code
+
 .form {
-  width: 50%;
-  max-width: 400px;
-  margin: 0 auto;
+  width: 80%;
+  margin: auto ;
+ background-color: bisque;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   text-align: center;
-  background-image: url
+
 }
 
 .form label {

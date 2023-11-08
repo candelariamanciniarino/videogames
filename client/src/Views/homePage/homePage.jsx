@@ -78,7 +78,7 @@ return (
           <button name="next" onClick={paginate}>Next</button>
       </div>
       <div className={styles.home}>
-          <h2 className={styles.titleone}>WELCOME!</h2>
+          <h2 className={styles.titleone}>WELCOME</h2>
           <div>
             {!loadingState ? (<div>
               {allGames.length === 0 ? <span>No hay elementos...</span>
@@ -89,7 +89,7 @@ return (
               </div>}
             </div>)
             :
-            <div>LOADING.....</div>}
+            <div style={loadingStyle}>LOADING.....</div>}
           </div>
           
       </div>
@@ -99,3 +99,19 @@ return (
 
 export default HomePage;
 
+const loadingStyle = {
+  display: 'flex',             // Utiliza flexbox para alinear y justificar contenido
+  justifyContent: 'center',    // Centra horizontalmente en el contenedor flex
+  alignItems: 'center',        // Centra verticalmente en el contenedor flex
+  height: '100vh',             // 100% de la altura del viewport
+  width: '100vw',              // 100% del ancho del viewport
+  position: 'fixed',           // Fija en la ventana gráfica, por encima de otros elementos
+  top: 0,                      // Alineado con el top del viewport
+  left: 0,                     // Alineado con el izquierdo del viewport
+  backgroundColor: 'rgba(255, 255, 255, 0.9)', // Fondo ligeramente transparente
+  color: '#333',               // Color del texto
+  fontSize: '2em',             // Tamaño del texto
+  fontWeight: 'bold',          // Grosor de la fuente
+  textShadow: '0px 0px 10px rgba(0, 0, 0, 0.5)', // Sombra del texto para mejorar contraste
+  zIndex: 1000,                // Asegura que el loading estará sobre otros elementos
+};

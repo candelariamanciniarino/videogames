@@ -34,14 +34,14 @@ const Create = () => {
     background_image: '',
     freleaseds: '',
     rating: '',
-    //description: '',
+    description: '',
     genres: [],
   });
 
   const [error, setErrors] = useState({
     name: 'Campo requerido',
     background_image: 'Campo requerido',
-   // description: 'Descripción no válida',
+   description: 'Descripción no válida',
     freleaseds: 'Fecha no válida',
     platforms: 'Plataformas no válidas',
     rating: 'Rating no válido',
@@ -54,11 +54,11 @@ const Create = () => {
         else if (state.name.length > 20) setErrors({ ...error, name: 'Es muy largo' });
         else setErrors({ ...error, name: '' });
         break;
-      // case 'description':
-      //   if (state.description.length === 0)
-      //     setErrors({ ...error, description: 'Campo requerido' });
-      //   else setErrors({ ...error, description: '' });
-      //   break;
+      case 'description':
+        if (state.description.length === 0)
+          setErrors({ ...error, description: 'Campo requerido' });
+        else setErrors({ ...error, description: '' });
+        break;
       case 'freleaseds':
         if (!state.freleaseds) setErrors({ ...error, freleaseds: 'Fecha no válida' });
         else setErrors({ ...error, freleaseds: '' });
@@ -80,7 +80,7 @@ const Create = () => {
   const disableSubmit = () => {
     console.log(state,"state")
     const isFormValid = state.name &&
-                        // state.description.length > 0 &&
+                         state.description.length > 0 &&
                         
                         state.background_image.length > 0 &&
                         state.freleaseds.length > 0 &&
@@ -139,15 +139,15 @@ const Create = () => {
      console.log(state2,"state2 antes de post")
           dispatch(postGame(state2));
          
-          // setInput({
-          //   name: "",
-          //   image: "",
-          //   description: "",
-          //   freleaseds: "",
-          //   rating: "",
-          //   platforms: [],
-          //   genres: [],
-          // });
+          setInput({
+            name: "",
+            image: "",
+            description: "",
+            freleaseds: "",
+            rating: "",
+            platforms: [],
+            genres: [],
+          });
        
         
       
@@ -156,8 +156,8 @@ const Create = () => {
   
 
   return (
-    <div className={style.form}>
-    <form onSubmit={handleSubmit}>
+    <div style={{width:"100%", display:"flex", justifyContent:"center"}} >
+    <form className={style.form} onSubmit={handleSubmit}>
         <label>Name:</label>
         <input name="name" onChange={handleChange} type="text" value={state.name} />
         {error.name && <p>{error.name}</p>}
@@ -169,9 +169,9 @@ const Create = () => {
 
         <br />
 
-  {     /* <label>Description:</label>
+  <label>Description:</label>
         <input name="description" onChange={handleChange} type="text" value={state.description} />
-        {error.description && <p>{error.description}</p>} */}
+        {error.description && <p>{error.description}</p>} 
 
         <br />
 

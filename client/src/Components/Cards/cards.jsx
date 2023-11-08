@@ -5,7 +5,7 @@ import styles from '../Cards/cards.module.css'
 function Cards ({allGames}){
   
   return (
-    <div className={styles.Cards}> 
+    <div className={styles.cards}> 
     {allGames.map((game)=> (
     <Card 
     key={game.id}

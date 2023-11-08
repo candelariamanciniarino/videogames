@@ -29,12 +29,18 @@ const videogamesDB = await Videogame.findAll({
       console.log("prueba:", dbGame)
      
 
-const response = await axios.get('https://api.rawg.io/api/games?key=75198e41e6ca47b498ef0a9b9d2dfe1f&dates=2019-09-01,2019-09-30&platforms=18,1,7');
+const response = await axios.get('https://api.rawg.io/api/games?key=75198e41e6ca47b498ef0a9b9d2dfe1f');
+const response2 = await axios.get('https://api.rawg.io/api/games?key=75198e41e6ca47b498ef0a9b9d2dfe1f&page=2');
+const response3 = await axios.get('https://api.rawg.io/api/games?key=75198e41e6ca47b498ef0a9b9d2dfe1f&page=3');
+const response4 = await axios.get('https://api.rawg.io/api/games?key=75198e41e6ca47b498ef0a9b9d2dfe1f&page=4');
 
+const response5 = await axios.get('https://api.rawg.io/api/games?key=75198e41e6ca47b498ef0a9b9d2dfe1f&page=5');
     const infoApi = response.data;
     
+
+
     const videogamesApi = cleaner(infoApi);
-    return [...videogamesApi,...dbGame];
+    return [...videogamesApi,...cleaner(response2.data),...cleaner(response3.data),...cleaner(response4.data),...cleaner(response5.data),...dbGame];
     //...videogamesApi,
 }
 
@@ -124,9 +130,12 @@ videogame = source === 'api'?(await axios.get (`https://api.rawg.io/api/games/${
         through: { attributes: [] },
     },
 });
+const finalVideoGame = {...videogame,
+  platforms:videogame.platforms.map(platform => platform.platform.name).join(', '),
+};
 //findByPk(id,include:{[Genres]})
 
-return videogame
+return finalVideoGame
 }
 
 
@@ -137,13 +146,15 @@ const createNewVideogame = async(
     background_image,
     freleaseds,
     rating,
-    genres
+    genres,
+    description
 ) =>{
     const newVideogame = await Videogame.create({ name,
         platforms,
         background_image,
         freleaseds,
         rating,
+        description
         })
 console.log("generos en create, ",genres)
         genres.forEach(async (g) => {

@@ -52,6 +52,7 @@ const createVideogamesHandler = async (req,res) =>{
         freleaseds,
         rating,
         genres,
+        description
            
     } = req.body;
     try{
@@ -61,6 +62,7 @@ const createVideogamesHandler = async (req,res) =>{
              background_image,
              freleaseds,
              rating,genres,
+             description
         
             );
             return res.status(200).json(videogameCreated);
