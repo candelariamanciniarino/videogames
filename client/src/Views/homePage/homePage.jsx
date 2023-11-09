@@ -1,7 +1,7 @@
  import {useDispatch} from 'react-redux';
  import { useEffect } from 'react';
  import { useSelector } from 'react-redux';
- import{getGames, getGenres, paginatedGame, filterByGenres, filterOrigin, setLoading, orderCards, getGamesOrderRatingAc} from '../../Redux/actions/actions.js';
+ import{getGames, getGenres, paginatedGame,goToPage, filterByGenres, filterOrigin, setLoading, orderCards, getGamesOrderRatingAc} from '../../Redux/actions/actions.js';
 
  import Cards from '../../Components/Cards/cards';
 
@@ -14,6 +14,7 @@ import { FiltrosBar } from '../../Components/FiltrosBar/FiltrosBar.jsx';
   const allGames = useSelector(state => state.allVideogames);
   const allGenres = useSelector(state => state.allGenres)
   const loadingState = useSelector(state => state.loadingState)
+  const currentPage = useSelector(state => state.currentPage)
 
  const handleFilter = (e) => {
     console.log(e.target.value)
@@ -53,6 +54,9 @@ const paginate=(event) => {
   dispatch(paginatedGame(event.target.name))
   
 }
+const goToPageFunc=(page)=>{
+  dispatch(goToPage(page))
+}
 
 const getGamesOrderRating=(event)=>{
   if(event.target.value === 'Default'){
@@ -74,8 +78,10 @@ return (
     gamesOrderAll = {gamesOrderAll}
     />
       <div className={styles.navbar}>
-          <button name="prev" onClick={paginate}>Prev</button>
-          <button name="next" onClick={paginate}>Next</button>
+          <button name="prev" onClick={paginate} disabled={currentPage ===0}>Prev</button>
+          
+          {[0,1,2,3,4,5,6].map(page => {return( <button key={page} onClick={()=>goToPageFunc(page)} style={{ backgroundColor: currentPage === page && "red"}} >{page}</button>)})}
+          <button name="next" onClick={paginate} disabled={currentPage ===6}>Next</button>
       </div>
       <div className={styles.home}>
           <h2 className={styles.titleone}>WELCOME</h2>
@@ -89,9 +95,16 @@ return (
               </div>}
             </div>)
             :
-            <div style={loadingStyle}>LOADING.....</div>}
+            <div style={loadingStyle}>LOADING.....
+            <img src="https://i.gifer.com/Ao.gif" width={400} alt="" />
+            </div>}
           </div>
+          <div className={styles.navbar}>
+          <button name="prev" onClick={paginate} disabled={currentPage ===0}>Prev</button>
           
+          {[0,1,2,3,4,5,6].map(page => {return( <button key={page} onClick={()=>goToPageFunc(page)} style={{ backgroundColor: currentPage === page && "red"}} >{page}</button>)})}
+          <button name="next" onClick={paginate} disabled={currentPage ===6}>Next</button>
+      </div>
       </div>
   </div>
 );
@@ -100,7 +113,8 @@ return (
 export default HomePage;
 
 const loadingStyle = {
-  display: 'flex',             // Utiliza flexbox para alinear y justificar contenido
+  display: 'flex',  
+  flexDirection:"column",           // Utiliza flexbox para alinear y justificar contenido
   justifyContent: 'center',    // Centra horizontalmente en el contenedor flex
   alignItems: 'center',        // Centra verticalmente en el contenedor flex
   height: '100vh',             // 100% de la altura del viewport

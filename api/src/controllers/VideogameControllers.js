@@ -71,53 +71,6 @@ const getVideogameByName = async (name) =>{
 }
 
 
-
-// const getVideogameByName = async (name) => {
-//   let gamesDb = [];
-//   let gamesApi = [];
-
-//   if (name) {
-//       gamesDb = await Videogame.findAll({
-//           include: Genres,
-//           where: { name: { [Op.iLike]: `%${name}%` } },
-//           limit: 15
-//       });
-
-//       let URL_API_SEARCH = `https://api.rawg.io/api/games?search=${name}&key=${API_KEY}`;
-//       const response = await axios.get(URL_API_SEARCH);
-//       gamesApi = response.data.results;
-//   } else {
-//       gamesDb = await Videogame.findAll({ include: Genres });
-
-//       const gamesToFetch = 100; // Número de juegos que deseas obtener
-//       let page = 1; // Número de página inicial
-//       let gamesFetched = 0; // Contador de juegos obtenidos
-
-//       while (gamesFetched < gamesToFetch) {
-//           const URL_API_SEARCH = `https://api.rawg.io/api/games?key=${API_KEY}&page=${page}&page_size=40`; // URL para obtener 40 juegos por página
-//           const response = await axios.get(URL_API_SEARCH);
-//           const fetchedGames = response.data.results;
-//           gamesApi = gamesApi.concat(fetchedGames);
-//           gamesFetched += 40; // Incrementa el contador
-
-//           if (!response.data.next || gamesFetched >= gamesToFetch) {
-//               break; // Detener si no hay más páginas o ya tienes suficientes juegos
-//           }
-
-//           page++; // Pasa a la siguiente página
-//       }
-//   }
-
-//   const AllVideogames = [...gamesApi, ...gamesDb];
-
-//   if (!AllVideogames.length) {
-//       throw new Error('Este nombre no coincide con ningún videojuego');
-//   }
-
-//   return infoCleaner(AllVideogames.slice(0, 15));
-// }
-//traer por id
-
 const getVideogameById = async (id,source ) =>{
     
 let videogame;
@@ -147,16 +100,18 @@ const createNewVideogame = async(
     freleaseds,
     rating,
     genres,
-    description
+    description,
+    
 ) =>{
     const newVideogame = await Videogame.create({ name,
         platforms,
         background_image,
         freleaseds,
         rating,
-        description
+        description,
+        
         })
-console.log("generos en create, ",genres)
+
         genres.forEach(async (g) => {
             const generoDB = await Genres.findOne({
               where: { name: g },
@@ -164,20 +119,6 @@ console.log("generos en create, ",genres)
             await newVideogame.addGenres(generoDB);
           });
 
-        // for (const genre of genres) {
-        //     const genresGame = await Genres.findOne({
-        //         where: { name: genre}
-        //     });
-        //     await newVideogame.addGenres(genresGame)
-
-        // }
-        // newVideogame = {
-        //     ...newVideogame.dataValues,
-        //     genres: genres
-        //         .map((g) => g)
-        //         .join(", "),
-        // };
-        
 
     return newVideogame
 };

@@ -28,6 +28,12 @@ export const ORDER_CARDS='ORDER_CARDS'
         }
  };
  }
+ export function goToPage(numberPage){
+  return ({
+    type: 'NUMBER-PAGE',
+    payload: numberPage
+  })
+ }
 
 export function setLoading(){
   return ({

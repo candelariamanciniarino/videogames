@@ -77,6 +77,13 @@ function rootReducer(state = initialState, action) {
                   allVideogames: [...state.allVideogamesBackUp].slice(firstIndex,firstIndex + ITEMS_PER_PAGE),
                   currentPage: action.payload === "next" ? next_page : prev_page 
                 };
+             case 'NUMBER-PAGE':
+                const index = action.payload * ITEMS_PER_PAGE
+                return {
+                    ...state,
+                    allVideogames: [...state.allVideogamesBackUp].slice(index,index + ITEMS_PER_PAGE),
+                    currentPage: action.payload 
+                  };
 
 
         case FILTER_BY_GENRES:
