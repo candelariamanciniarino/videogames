@@ -139,7 +139,7 @@ const Create = () => {
      console.log(state2,"state2 antes de post")
           dispatch(postGame(state2));
          
-          setInput({
+          setState({
             name: "",
             image: "",
             description: "",

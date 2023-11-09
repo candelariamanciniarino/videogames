@@ -7,15 +7,15 @@ function NavBar({ handleChange, handleSubmit, mostrarSearch }) {
     return (
       <div className={style.navbar}>
         <div className={style.logoContainer}>
-          <Link to={"/"}><img  src="https://img.freepik.com/premium-vector/elegant-game-controller-design-sketch-style-esports-mascot-gaming-logo-illustration_196854-609.jpg?w=2000" alt="" />
+          <Link to={"/create"}><img  src="https://img.freepik.com/premium-vector/elegant-game-controller-design-sketch-style-esports-mascot-gaming-logo-illustration_196854-609.jpg?w=2000" alt="" />
           <br/>
-          START
+          crear un juego
           </Link>
         </div>
         <div className={style.links}>
           <Link to={"/home"}>Home</Link>
-          <br />
-          <Link to={"/create"}>Create a game</Link>
+          <br /> {/*Agrega un salto de línea.
+          {/* <Link to={"/create"}>Create a game</Link> */}
           <br />
         </div>
        {mostrarSearch && <div><SearchBar /></div>}

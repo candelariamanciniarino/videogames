@@ -122,7 +122,7 @@ const getVideogameById = async (id,source ) =>{
     
 let videogame;
 
-videogame = source === 'api'?(await axios.get (`https://api.rawg.io/api/games/${id}?key=75198e41e6ca47b498ef0a9b9d2dfe1f&dates=2019-09-01,2019-09-30&platforms=18,1,7`)).data: Videogame.findOne({
+videogame = source === 'api'?(await axios.get (`https://api.rawg.io/api/games/${id}?key=75198e41e6ca47b498ef0a9b9d2dfe1f`)).data: Videogame.findOne({
     where: { id: id },
     include: {
         model: Genres,
@@ -130,9 +130,9 @@ videogame = source === 'api'?(await axios.get (`https://api.rawg.io/api/games/${
         through: { attributes: [] },
     },
 });
-const finalVideoGame = {...videogame,
-  platforms:videogame.platforms.map(platform => platform.platform.name).join(', '),
-};
+const finalVideoGame = source === 'api' ? {...videogame,
+  platforms: videogame.platforms.map(platform => platform.platform.name).join(', ')} : videogame
+;
 //findByPk(id,include:{[Genres]})
 
 return finalVideoGame

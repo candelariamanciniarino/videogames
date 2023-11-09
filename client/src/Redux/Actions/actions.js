@@ -73,8 +73,9 @@ export function getGenres() {
       console.log(state,"state antes del post")
       try {
          await axios.post("http://localhost:3001/videogame", state)
-        console.log("Juego creado con exito!")
+        alert("Juego creado con exito!")
       } catch (error) {
+        alert("Hubo un error checkear consola")
         console.log(error.response.data.error,"ERROR AL CREAR JUEGO")
       }
   
@@ -113,12 +114,14 @@ export function getGenres() {
 
   export function searchGames(name) {
     return async function (dispatch){
-      
+      try {
        return dispatch({
           type: SEARCH_GAME,
           payload: name
         });
-      
+      } catch (error) {
+        console.log("error al buscar");
+      }
     };
   }
 

@@ -23,7 +23,7 @@ function Details() {
 
   useEffect(() => {
     dispatch(getById(id)); 
-    console.log("Game API:",game)
+    // console.log("Game API:",game)
   }, [dispatch]);
 
   return (
@@ -40,7 +40,8 @@ function Details() {
                  <div
             dangerouslySetInnerHTML={{ __html: game.description }}
             className=" "
-          ></div> {/* Utilizamos esto, debido que la api me entrega en formato HTML, de esta manera puedo leerlo correctamente */}
+          ></div>
+          {/* Utilizo esto, debido que la api me entrega en formato HTML, de esta manera puedo leerlo correctamente */}
             <h2>Plataformas: {game ? game.platforms : 'No hay información de plataformas'}</h2>
                <h2>Géneros: {game && game.genres ? game.genres.map(g => g.name).join(", ") : 'No hay información de géneros'}</h2>
         

@@ -1,3 +1,4 @@
+
 .background {
     /* border: solid blue; */
     background-size: cover;
@@ -34,7 +35,7 @@
      margin-bottom: 2px;
      text-align: center;
      font-size: 36px;
-     color:black;
+     color: white;
      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
    }
   
