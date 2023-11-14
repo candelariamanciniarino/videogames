@@ -241,6 +241,7 @@ const Create = () => {
 
         <label>Genres:</label>
         <select  placeholder='seleccionar el genero 'name="genres" onChange={(e)=>handleGenres(e)}>
+        <option value="">Seleccionar los generos </option>
           {allGenres.map((genre, index) => (
             <option key={index} value={genre.name}>
               {genre.name}
