@@ -9,7 +9,7 @@ function Details() {
   const {id} = useParams();
   const dispatch = useDispatch();
   const game = useSelector((state) => state.videoGameId)
-
+  console.log("Game Detail, ",game)
   
   const [searchId, setSearchId] = useState("")
 
@@ -25,7 +25,9 @@ function Details() {
     dispatch(getById(id)); 
     // console.log("Game API:",game)
   }, [dispatch]);
+function formatearFecha(fecha){
 
+}
   return (
     <div className={style.detailsContainer}>
       <div >
@@ -35,12 +37,12 @@ function Details() {
                 <h2>Nombre: {game.name}</h2>
                 <h2>rating:{game.rating}</h2>
                 <h2>id:{game.id}</h2>
-                <h2>released:{game.released}</h2>
+                <h2>released:{(game.freleaseds)}</h2>
                  <p>Description:</p>
                  <div
             dangerouslySetInnerHTML={{ __html: game.description }}
             className=" "
-          ></div>
+          ></div> 
           {/* Utilizo esto, debido que la api me entrega en formato HTML, de esta manera puedo leerlo correctamente */}
             <h2>Plataformas: {game ? game.platforms : 'No hay información de plataformas'}</h2>
                <h2>Géneros: {game && game.genres ? game.genres.map(g => g.name).join(", ") : 'No hay información de géneros'}</h2>

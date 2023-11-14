@@ -9,7 +9,7 @@ const LandingPage=()=>{
             <title>comenzemos </title>
 
             <Link to ='/home'>
-            <button> Bienvenidos al mundo de los juego </button>
+            <button> Bienvenidos al mundo de los Video juego </button>
             </Link>
         </div>
     );

@@ -30,7 +30,7 @@ module.exports = (sequelize) => {
       allowNull:false
     },
     freleaseds:{
-      type: DataTypes.STRING,
+      type: DataTypes.DATEONLY,
       allowNull: false
 
     },

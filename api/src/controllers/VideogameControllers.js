@@ -84,7 +84,7 @@ videogame = source === 'api'?(await axios.get (`https://api.rawg.io/api/games/${
     },
 });
 const finalVideoGame = source === 'api' ? {...videogame,
-  platforms: videogame.platforms.map(platform => platform.platform.name).join(', ')} : videogame
+  platforms: videogame.platforms.map(platform => platform.platform.name).join(', '),freleaseds:videogame.released} : videogame
 ;
 //findByPk(id,include:{[Genres]})
 

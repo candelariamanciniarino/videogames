@@ -2,6 +2,8 @@
 
 //importa las actions types
 import {SEARCH_GAME, GET_GAMES, GET_GAME_ID, GET_GENRES, GET_PLATFORMS, PAGINATED, FILTER_BY_GENRES,FILTER_ORIGIN,ORDER_BY_RATING, ORDER_CARDS,  filterOrigin} from "../actions/actions";
+//Importa las constantes de tipos de acción desde el archivo de acciones.
+
 
 //estado inicial
 let initialState = {
@@ -15,12 +17,12 @@ let initialState = {
     loadingState:true,
 }
 
-function rootReducer(state = initialState, action) {
+function rootReducer(state = initialState, action) { //Define el reducer principal que maneja las acciones y actualiza el estado de la aplicación.
     const ITEMS_PER_PAGE = 15;
 
 
 
-    switch (action.type) {
+    switch (action.type) { //Inicia un bloque switch que maneja diferentes tipos de acciones.
 
         case SEARCH_GAME:
             const sear = action.payload.toLowerCase();
@@ -74,11 +76,11 @@ function rootReducer(state = initialState, action) {
         
                 return {
                   ...state,
-                  allVideogames: [...state.allVideogamesBackUp].slice(firstIndex,firstIndex + ITEMS_PER_PAGE),
+                  allVideogames: [...state.allVideogamesBackUp].slice(firstIndex,firstIndex + ITEMS_PER_PAGE),//para seleccionar el segmento de videojuegos que se mostrará en la página actual.
                   currentPage: action.payload === "next" ? next_page : prev_page 
                 };
              case 'NUMBER-PAGE':
-                const index = action.payload * ITEMS_PER_PAGE
+                const index = action.payload * ITEMS_PER_PAGE //Calcula el índice de inicio para el nuevo conjunto de videojuegos basándose en el número de página recibido en la carga útil de la acción.
                 return {
                     ...state,
                     allVideogames: [...state.allVideogamesBackUp].slice(index,index + ITEMS_PER_PAGE),
@@ -97,7 +99,7 @@ function rootReducer(state = initialState, action) {
 
 
         case FILTER_ORIGIN: 
-              let filterorigin;
+              let filterorigin; //para almacenar los videojuegos después de aplicar el filtro según el origen.
                 console.log((action.payload),"filtros")
               if(action.payload === 'All'){
                 filterorigin = state.allVideogamesBackUp;

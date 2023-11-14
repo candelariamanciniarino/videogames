@@ -40,24 +40,53 @@ const Create = () => {
 
   const [error, setErrors] = useState({
     name: 'Campo requerido',
-    background_image: 'Campo requerido',
+    background_image: 'Campo requerido img',
    description: 'Descripción no válida',
     freleaseds: 'Fecha no válida',
     platforms: 'Plataformas no válidas',
     rating: 'Rating no válido',
   });
 
+  // const validate = (state, name) => {
+  //  let validName = /^[a-zA-Z\s]+$/;
+  //   switch (name) {
+  //     case 'name':
+  //       if (state.name === '') setErrors({ ...error, name: 'El campo es requerido' });
+  //       else if (state.name.length > 20) setErrors({ ...error, name: 'Es muy largo' });
+  //       else setErrors({ ...error, name: '' });
+  //       break;``
+
+
+
+
   const validate = (state, name) => {
+    let validName = /^[a-zA-Z\s]+$/;
+  
     switch (name) {
       case 'name':
-        if (state.name === '') setErrors({ ...error, name: 'El campo es requerido' });
-        else if (state.name.length > 20) setErrors({ ...error, name: 'Es muy largo' });
-        else setErrors({ ...error, name: '' });
+        if (state.name === '') {
+          setErrors({ ...error, name: 'El campo es requerido' });
+        } else if (state.name.length > 20) {
+          setErrors({ ...error, name: 'Es muy largo' });
+        } else if (!validName.test(state.name)) {
+          setErrors({ ...error, name: 'El nombre solo debe contener letras y espacios' });
+        } else {
+          setErrors({ ...error, name: '' });
+        }
         break;
+      case 'background_image':
+        
+          if(state.background_image === ''){
+       
+            setErrors({ ...error, background_image: 'El campo es requerido img' });
+     } else{ 
+    
+     setErrors({...error, background_image:''})}
+      break
       case 'description':
         if (state.description.length === 0)
           setErrors({ ...error, description: 'Campo requerido' });
-        else setErrors({ ...error, description: '' });
+        else setErrors({ ...error, description:'' });
         break;
       case 'freleaseds':
         if (!state.freleaseds) setErrors({ ...error, freleaseds: 'Fecha no válida' });
@@ -68,7 +97,7 @@ const Create = () => {
         else setErrors({ ...error, platforms: '' });
         break;
       case 'rating':
-        if (isNaN(state.rating) || state.rating < 0) setErrors({ ...error, rating: 'Rating no válido' });
+        if (isNaN(state.rating) || state.rating < 0 || state.rating > 5) setErrors({ ...error, rating: 'Rating no válido, formato: 1 a 5 Estrellas' });
         else setErrors({ ...error, rating: '' });
         break;
     
@@ -132,22 +161,31 @@ const Create = () => {
 
 
 
-
+  function validateForm(errors) {
+    return Object.values(errors).every(error => error === '');
+  }
   function handleSubmit(e) {
     e.preventDefault();
      let state2= {...state,genres:generosSelec, platforms: [state.platforms]}
      console.log(state2,"state2 antes de post")
-          dispatch(postGame(state2));
+     if( validateForm(error)){
+      dispatch(postGame(state2));
+     }else {
+      alert("Hay errores aun")
+     }
+          
          
           setState({
             name: "",
             image: "",
             description: "",
+            background_image:"",
             freleaseds: "",
             rating: "",
             platforms: [],
             genres: [],
           });
+          setGenerosSelec([])
        
         
       
@@ -158,32 +196,33 @@ const Create = () => {
   return (
     <div style={{width:"100%", display:"flex", justifyContent:"center"}} >
     <form className={style.form} onSubmit={handleSubmit}>
-        <label>Name:</label>
-        <input name="name" onChange={handleChange} type="text" value={state.name} />
+        <label >Name:</label>
+        <input placeholder='Ej: Mario Karts ' name="name" onChange={handleChange} type="text" value={state.name} />
         {error.name && <p>{error.name}</p>}
 
         <br />
  
         <label>Background Image:</label>
-        <input name="background_image" onChange={handleChange} type="text" value={state.background_image} />
-
+       
+        <input  placeholder='ingrese una imagen' name="background_image" onChange={handleChange} type="text" value={state.background_image} />
+        {error.background_image && <p>{error.background_image}</p>}
         <br />
 
   <label>Description:</label>
-        <input name="description" onChange={handleChange} type="text" value={state.description} />
+        <input  placeholder='Ej: informacion del juego 'name="description" onChange={handleChange} type="text" value={state.description} />
         {error.description && <p>{error.description}</p>} 
 
         <br />
 
-        <label>freleaseds:</label>
-        <input name="freleaseds" onChange={handleChange} type="text" value={state.freleaseds} />
+        <label>Fecha releaseds:</label>
+        <input  placeholder ='Ej: seleccionar la fecha ' name="freleaseds" onChange={handleChange} type="date" value={state.freleaseds} />
         {error.freleaseds && <p>{error.freleaseds}</p>}
 
 
         <br />
 
         <label>Rating:</label>
-        <input name="rating" onChange={handleChange} type="text" value={state.rating} />
+        <input   placeholder='seleccionar el rating (1 al 5)'  name="rating" onChange={handleChange} type="number" max={5} min={1} value={state.rating} />
         {error.rating && <p>{error.rating}</p>}
 
         <br />
@@ -201,7 +240,7 @@ const Create = () => {
         <br />
 
         <label>Genres:</label>
-        <select name="genres" onChange={(e)=>handleGenres(e)}>
+        <select  placeholder='seleccionar el genero 'name="genres" onChange={(e)=>handleGenres(e)}>
           {allGenres.map((genre, index) => (
             <option key={index} value={genre.name}>
               {genre.name}
