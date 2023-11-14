@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {useParams} from 'react-router-dom';
-import {getById} from '../../Redux/actions/actions'
+import {getById, setLoading} from '../../Redux/actions/actions'
 import Card from '../../Components/Card/Card';
 import style from './DetailPage.module.css'
 
@@ -9,6 +9,7 @@ function Details() {
   const {id} = useParams();
   const dispatch = useDispatch();
   const game = useSelector((state) => state.videoGameId)
+  const loadingState = useSelector(state=> state.loadingState)
   console.log("Game Detail, ",game)
   
   const [searchId, setSearchId] = useState("")
@@ -22,16 +23,17 @@ function Details() {
    }
 
   useEffect(() => {
+    dispatch(setLoading())
     dispatch(getById(id)); 
-    // console.log("Game API:",game)
   }, [dispatch]);
+
 function formatearFecha(fecha){
 
 }
   return (
     <div className={style.detailsContainer}>
       <div >
-    {game && <div
+    {!loadingState ? <div
       >
         <img width={200} src={game.background_image} alt={game.name} />
                 <h2>Nombre: {game.name}</h2>
@@ -47,7 +49,7 @@ function formatearFecha(fecha){
             <h2>Plataformas: {game ? game.platforms : 'No hay información de plataformas'}</h2>
                <h2>Géneros: {game && game.genres ? game.genres.map(g => g.name).join(", ") : 'No hay información de géneros'}</h2>
         
-        </div>}
+        </div>:<div>Cargando xd... </div>}
        </div>
       
    
